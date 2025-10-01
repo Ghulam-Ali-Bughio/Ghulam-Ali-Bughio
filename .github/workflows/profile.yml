@@ -1,39 +1,32 @@
 name: Update GitHub Profile
 
 on:
+  workflow_dispatch:   # Manual trigger
   schedule:
-    - cron: "0 0 * * *"   # runs every day at midnight UTC
-  workflow_dispatch:       # allows manual run
-
-permissions:
-  contents: write   # ✅ allow workflow to push changes
+    - cron: "0 * * * *"  # Runs every hour
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Generate GitHub Metrics
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          filename: github-metrics.svg
-          base: header, activity, community, repositories, metadata
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+      - name: Update README.md
+        run: |
+          echo "🔄 Updating README..."
+          # Replace line starting with 'Last updated on:' or append if not found
+          if grep -q "Last updated on:" README.md; then
+            sed -i "s|Last updated on:.*|Last updated on: $(date +"%Y-%m-%d %H:%M:%S") UTC|" README.md
+          else
+            echo -e "\nLast updated on: $(date +"%Y-%m-%d %H:%M:%S") UTC" >> README.md
+          fi
 
-      - name: Generate Snake Animation
-        uses: Platane/snk@master
-        with:
-          github_user_name: Ghulam-Ali-Bughio
-          outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark
-
-      - name: Push changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: GitHub Action
-          author_email: actions@github.com
-          message: "chore: update metrics and snake"
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🔄 Auto update README with latest timestamp [skip ci]" || echo "No changes to commit"
+          git push
