@@ -5,12 +5,14 @@ on:
     - cron: "0 0 * * *"   # runs every day at midnight UTC
   workflow_dispatch:       # allows manual run
 
+permissions:
+  contents: write   # ✅ allow workflow to push changes
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Generate GitHub Metrics
         uses: lowlighter/metrics@latest
@@ -28,11 +30,6 @@ jobs:
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
-
-      - name: Move snake files to repo root
-        run: |
-          mv dist/github-snake.svg .
-          mv "dist/github-snake-dark.svg?palette=github-dark" github-snake-dark.svg
 
       - name: Push changes
         uses: EndBug/add-and-commit@v9
