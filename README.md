@@ -26,7 +26,7 @@
 ## 🐍 Contribution Snake  
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Ghulam-Ali-Bughio/Ghulam-Ali-Bughio/main/github-snake-dark.svg" alt="GitHub Snake" />
+  <img src="https://raw.githubusercontent.com/Ghulam-Ali-Bughio/Ghulam-Ali-Bughio/output/github-snake-dark.svg" alt="GitHub Snake" />
 </p>
 
 ---
@@ -43,4 +43,3 @@
 
 - [LinkedIn](https://www.linkedin.com/in/ghulam-ali-bughio/)  
 - [GitHub](https://github.com/Ghulam-Ali-Bughio)  
-
