@@ -1,18 +1,27 @@
 name: Update GitHub Profile
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 0 * * *"   # runs every day at midnight UTC
   workflow_dispatch:       # allows manual run
+
+permissions:
+  contents: write          # ✅ allow workflow to push changes
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Generate GitHub Metrics
         uses: lowlighter/metrics@latest
         with:
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}   # ✅ use default token with write access
           filename: github-metrics.svg
           base: header, activity, community, repositories, metadata
           plugin_isocalendar: yes
@@ -32,6 +41,3 @@ jobs:
           author_name: Ghulam Ali
           author_email: ghulam-ali-bughio@users.noreply.github.com
           message: "🔄 Auto update metrics and snake [skip ci]"
-        env:
-          GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN }}
-
