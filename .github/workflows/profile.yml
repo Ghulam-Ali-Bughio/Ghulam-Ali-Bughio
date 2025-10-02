@@ -22,7 +22,7 @@ jobs:
         uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          filename: github-metrics.svg
+          filename: metrics.plugin.isocalendar.fullyear.svg   # ✅ save directly to root
           base: header, activity, community, repositories, metadata
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
@@ -32,10 +32,10 @@ jobs:
         with:
           github_user_name: Ghulam-Ali-Bughio
           outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark
+            github-snake.svg
+            github-snake-dark.svg?palette=github-dark   # ✅ saved to root
 
-      # ✅ Checkout repo again so we have a .git folder for committing
+      # ✅ Checkout repo again to restore .git folder before committing
       - name: Checkout repository again
         uses: actions/checkout@v3
 
