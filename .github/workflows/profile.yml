@@ -21,7 +21,7 @@ jobs:
       - name: Generate GitHub Metrics
         uses: lowlighter/metrics@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}   # ✅ use default token with write access
+          token: ${{ secrets.GITHUB_TOKEN }}
           filename: github-metrics.svg
           base: header, activity, community, repositories, metadata
           plugin_isocalendar: yes
@@ -34,6 +34,10 @@ jobs:
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
+
+      # ✅ Checkout repo again so we have a .git folder for committing
+      - name: Checkout repository again
+        uses: actions/checkout@v3
 
       - name: Commit and Push changes
         uses: EndBug/add-and-commit@v9
