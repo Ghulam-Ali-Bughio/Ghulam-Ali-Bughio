@@ -10,7 +10,6 @@
 ## 📊 GitHub Metrics  
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Ghulam-Ali-Bughio/Ghulam-Ali-Bughio/main/github-metrics.svg" alt="GitHub Metrics" />
 </p>
 
 ---
